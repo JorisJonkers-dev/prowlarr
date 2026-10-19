@@ -21,6 +21,9 @@ applications:
         engine: files # keys the nightly copy of its config
         provides:
           http: 9696
+        dependsOn: # optional: it starts without them
+          - { application: sonarr, surface: http, required: false }
+          - { application: radarr, surface: http, required: false }
         vpn: { forwardedPort: false } # indexers are fetched, nothing dials in
         placement:
           memory: 512Mi

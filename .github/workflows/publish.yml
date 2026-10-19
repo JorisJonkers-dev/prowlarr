@@ -119,6 +119,7 @@ jobs:
       version: ${{ inputs.tag || github.ref_name }}
       ref: ${{ needs.resolve-image-lock.outputs.source-sha }}
       validate-with: deploy/env
+      validate-with-fragments: arr # the providers its edges name
       images-lock-artifact: ${{ needs.resolve-image-lock.outputs.images-lock-artifact }}
     secrets:
       ESTATE_DISPATCH_APP_PRIVATE_KEY: ${{ secrets.ESTATE_DISPATCH_APP_PRIVATE_KEY }}
