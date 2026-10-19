@@ -1,0 +1,64 @@
+# The repository's version is prowlarr's own, its first three numbers (a fragment's version is
+# x.y.z, and prowlarr's fourth is a build). A merge to main that changes the prowlarr/Dockerfile
+# FROM tag releases that version: it tags and releases v<version>, then publishes the image and the
+# Intent Fragment. A version already released publishes nothing, so a change that keeps the FROM
+# tag ships with the next prowlarr release.
+name: Release
+
+on:
+  push:
+    branches: [main]
+    paths: [prowlarr/Dockerfile]
+  workflow_dispatch:
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+permissions: {}
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    outputs:
+      tag: ${{ steps.version.outputs.tag }}
+      created: ${{ steps.release.outputs.created }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Read prowlarr's version from the FROM line
+        id: version
+        run: |
+          version=$(sed -n 's|^FROM linuxserver/prowlarr:\([0-9]*\.[0-9]*\.[0-9]*\)\.[0-9]*-ls[0-9]*@sha256:[0-9a-f]\{64\}$|\1|p' prowlarr/Dockerfile)
+          [ -n "$version" ] || { echo "::error::prowlarr/Dockerfile names no linuxserver/prowlarr:x.y.z.n-lsN@sha256 image"; exit 1; }
+          echo "tag=v$version" >> "$GITHUB_OUTPUT"
+
+      - name: Release the version once
+        id: release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.version.outputs.tag }}
+        run: |
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "$TAG is already released; nothing to publish"
+            echo "created=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          gh release create "$TAG" --target "$GITHUB_SHA" --title "$TAG" \
+            --notes "prowlarr ${TAG#v}, hardened for the estate path. Upstream notes: https://github.com/Prowlarr/Prowlarr/releases"
+          echo "created=true" >> "$GITHUB_OUTPUT"
+
+  publish:
+    needs: [tag]
+    if: needs.tag.outputs.created == 'true'
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+    uses: ./.github/workflows/publish.yml
+    with:
+      tag: ${{ needs.tag.outputs.tag }}
+    secrets: inherit

@@ -1,0 +1,10 @@
+#!/bin/sh
+# Starts prowlarr as linuxserver's service script does when it runs as a non-root user, without s6:
+# s6 wants a /run owned by its own user, and a pod's /run is a root-owned emptyDir.
+set -eu
+umask 002
+export TERM=DUMB
+# The image points TMPDIR below /run, which the read-only root does not hold; /tmp is writable.
+export TMPDIR=/tmp
+cd /app/prowlarr/bin
+exec /app/prowlarr/bin/Prowlarr -nobrowser -data=/config
