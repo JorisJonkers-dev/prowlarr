@@ -25,17 +25,18 @@ image's own sits below `/run`.
 
 ## Versions
 
-This repository's version is Prowlarr's first three numbers: release `v2.5.2`
-runs Prowlarr 2.5.2.5491. A fragment's version is `x.y.z`, so the fourth, a
-build number, and linuxserver's `-lsN` rebuilds ship with the next release.
-Renovate opens a pull request for each update. A minor or patch update merges
-itself once `Pipeline Complete` passes; a major release waits for approval on
-the Dependency Dashboard. When the `FROM` tag in `prowlarr/Dockerfile` names a
-new version on `main`, `release.yml` releases it and publishes the image and
-the Intent Fragment.
+This repository releases its own semver, continuing from `v2.5.2`, the last tag
+named after Prowlarr. The Prowlarr version the image ships is recorded
+separately, as the images lock's `version` (JorisJonkers-dev/workspace#140), so
+a fix to our configuration no longer waits for a Prowlarr release. Renovate
+opens a pull request for each update, as a `fix`, so release-please releases
+it. A minor or patch update merges itself once `Pipeline Complete` passes; a
+major release waits for approval on the Dependency Dashboard. Merging release-
+please's pull request tags `vX.Y.Z`, which publishes the image and the Intent
+Fragment.
 
 `flaresolverr/Dockerfile` is not built. It names the flaresolverr image by
-digest, which `publish.yml` locks for the sidecar, and Renovate moves it.
+digest; `publish.yml` locks its versioned tag for the sidecar, and Renovate moves it.
 
 `scripts/smoke-test.sh` starts the image restricted and waits until it serves;
 CI runs it on every change.

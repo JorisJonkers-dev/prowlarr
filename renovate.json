@@ -3,6 +3,11 @@
   "extends": ["github>JorisJonkers-dev/renovate-config"],
   "packageRules": [
     {
+      "description": "An upstream image bump is a fix, so release-please releases it, and the images lock records the new upstream version (JorisJonkers-dev/workspace#140).",
+      "matchManagers": ["dockerfile"],
+      "semanticCommitType": "fix"
+    },
+    {
       "description": "linuxserver tags prowlarr x.y.z.build-lsN: the first four are prowlarr's, the last linuxserver's rebuild.",
       "matchDatasources": ["docker"],
       "matchPackageNames": ["linuxserver/prowlarr"],
