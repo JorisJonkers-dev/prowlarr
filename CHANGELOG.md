@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.6.1](https://github.com/JorisJonkers-dev/prowlarr/compare/v2.6.0...v2.6.1) (2026-10-21)
+
+
+### Miscellaneous Chores
+
+* Renovate alone updates dependencies, so Dependabot's fallback goes ([#9](https://github.com/JorisJonkers-dev/prowlarr/issues/9)) ([b2ca8ee](https://github.com/JorisJonkers-dev/prowlarr/commit/b2ca8ee06516e4d50935d71ae8cded097f345c83))
+
 ## [2.6.0](https://github.com/JorisJonkers-dev/prowlarr/compare/v2.5.2...v2.6.0) (2026-10-21)
 
 
