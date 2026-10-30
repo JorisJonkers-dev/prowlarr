@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.7.0](https://github.com/JorisJonkers-dev/prowlarr/compare/v2.6.1...v2.7.0) (2026-10-30)
+
+
+### Features
+
+* declare its public and LAN exposures, so the estate edge renders their routes ([#13](https://github.com/JorisJonkers-dev/prowlarr/issues/13)) ([72594af](https://github.com/JorisJonkers-dev/prowlarr/commit/72594afb5fd485aab9ae56fb5070f51069d03b09))
+
 ## [2.6.1](https://github.com/JorisJonkers-dev/prowlarr/compare/v2.6.0...v2.6.1) (2026-10-21)
 
 
