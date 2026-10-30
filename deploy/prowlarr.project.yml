@@ -13,6 +13,19 @@ owner: joris
 
 applications:
   - id: prowlarr
+    exposure:
+      # In public, behind the platform's sign-in.
+      - name: public
+        host: prowlarr.jorisjonkers.dev
+        audience: authenticated
+        routes:
+          - { path: /, match: prefix, process: prowlarr, surface: http }
+      # On the LAN, with no sign-in.
+      - name: lan
+        host: prowlarr.jorisjonkers.dev
+        audience: lan
+        routes:
+          - { path: /, match: prefix, process: prowlarr, surface: http }
     processes:
       - name: prowlarr
         lifecycle: application
