@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.7.1](https://github.com/JorisJonkers-dev/prowlarr/compare/v2.7.0...v2.7.1) (2026-11-12)
+
+
+### Bug Fixes
+
+* **hygiene:** never cancel a run of the required hygiene checks ([#21](https://github.com/JorisJonkers-dev/prowlarr/issues/21)) ([4b9a6a6](https://github.com/JorisJonkers-dev/prowlarr/commit/4b9a6a6af7ee9c45d9d0660d1e75c83b5ff18a79))
+
 ## [2.7.0](https://github.com/JorisJonkers-dev/prowlarr/compare/v2.6.1...v2.7.0) (2026-10-30)
 
 
