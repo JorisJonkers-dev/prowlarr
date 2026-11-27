@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.8.0](https://github.com/JorisJonkers-dev/prowlarr/compare/v2.7.1...v2.8.0) (2026-11-27)
+
+
+### Features
+
+* **deps:** update linuxserver/prowlarr docker tag to v2.7.0.5723-ls168 ([#27](https://github.com/JorisJonkers-dev/prowlarr/issues/27)) ([3defd54](https://github.com/JorisJonkers-dev/prowlarr/commit/3defd5416016f0967557efe1f3f6d8e1b8a0f09e))
+
 ## [2.7.1](https://github.com/JorisJonkers-dev/prowlarr/compare/v2.7.0...v2.7.1) (2026-11-12)
 
 
